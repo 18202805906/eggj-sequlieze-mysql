@@ -45,9 +45,13 @@
     "ci": "npm run lint && npm run cov",
     "autod": "autod"
   },
+  "gitHooks": {
+    "pre-commit": "lint-staged",
+    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+  },
   "lint-staged": {
-    "*.{vue,js,ts,jsx,tsx}": "eslint --fix",
-    "*.{js,jsx,tsx,ts,md,json}": "prettier --write"
+    "*.{vue,js,ts,jsx,tsx}": ["eslint --fix", "git add"],
+    "*.{js,jsx,tsx,ts,md,json}": ["prettier --write", "git add"]
   },
   "ci": {
     "version": "10"
