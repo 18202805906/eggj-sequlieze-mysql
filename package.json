@@ -1,6 +1,6 @@
 {
   "name": "example",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "",
   "private": true,
   "egg": {
@@ -29,7 +29,8 @@
     "husky": "^7.0.4",
     "lint-staged": "^12.1.2",
     "prettier": "^2.5.1",
-    "sequelize-cli": "^6.3.0"
+    "sequelize-cli": "^6.3.0",
+    "standard-version": "^9.3.2"
   },
   "engines": {
     "node": ">=10.0.0"
@@ -45,11 +46,17 @@
     "lint": "eslint .",
     "ci": "npm run lint && npm run cov",
     "autod": "autod",
-    "commit": "git add . && git-cz"
+    "commit": "git add . && git-cz",
+    "release": "standard-version --infile docs/CHANGELOG.md"
   },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "standard-version": {
+    "skip": {
+      "commit": false
     }
   },
   "lint-staged": {
