@@ -20,6 +20,7 @@
     "@commitlint/config-conventional": "^15.0.0",
     "autod": "^3.0.1",
     "autod-egg": "^1.1.0",
+    "cz-conventional-changelog": "^3.3.0",
     "egg-bin": "^4.11.0",
     "egg-ci": "^1.11.0",
     "egg-mock": "^3.21.0",
@@ -43,15 +44,23 @@
     "cov": "egg-bin cov",
     "lint": "eslint .",
     "ci": "npm run lint && npm run cov",
-    "autod": "autod"
+    "autod": "autod",
+    "commit": "git add . && git-cz"
   },
-  "gitHooks": {
-    "pre-commit": "lint-staged",
-    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   },
   "lint-staged": {
-    "*.{vue,js,ts,jsx,tsx}": ["eslint --fix", "git add"],
-    "*.{js,jsx,tsx,ts,md,json}": ["prettier --write", "git add"]
+    "**/*.{vue,js,ts,jsx,tsx}": [
+      "eslint --fix",
+      "git add"
+    ],
+    "**/*.{js,jsx,tsx,ts,md,json}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "ci": {
     "version": "10"
