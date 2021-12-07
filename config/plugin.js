@@ -19,4 +19,8 @@ module.exports = {
     enable: true,
     package: 'egg-valparams',
   },
+  jwt: {
+    enable: true,
+    package: 'egg-jwt',
+  },
 };

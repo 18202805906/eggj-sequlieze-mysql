@@ -5,18 +5,18 @@
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
-module.exports = appInfo => {
+module.exports = (appInfo) => {
   /**
    * built-in config
    * @type {Egg.EggAppConfig}
    **/
-  const config = exports = {};
+  const config = (exports = {});
 
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1637017271937_3668';
 
   // add your middleware config here
-  config.middleware = [ 'errorHanlder' ];
+  config.middleware = ['errorHanlder'];
 
   // flag to enable your hanlder
   // config.errorHanlder = {
@@ -24,7 +24,14 @@ module.exports = appInfo => {
   //   // match: '/user/findUserByUserId',
   //   ignore: '/user/findUserByUserId',
   // };
-
+  config.jwt = {
+    // token过期时间，单位秒。
+    expire: 7200,
+    // token签名秘钥。
+    secret: 'b2ce49e4a541068d',
+    refresh_expire: 259200,
+    refresh_secret: 'b2ce49e4a541068c',
+  };
   config.valparams = {
     locale: 'zh-cn',
     throwError: true,
@@ -40,12 +47,13 @@ module.exports = appInfo => {
     csrf: {
       enable: false,
     },
-    domainWhiteList: [ ],
+    domainWhiteList: ['*'],
   };
   // 允许跨域方法
   config.cors = {
     origin: '*',
-    allowMethods: 'GET, PUT,  POST, DELETE, PATCH',
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,OPTIONS',
+    allowHeaders: '*',
   };
   // 数据库的配置
   config.sequelize = {
@@ -71,7 +79,6 @@ module.exports = appInfo => {
       underscored: true,
     },
   };
-
 
   return {
     ...config,

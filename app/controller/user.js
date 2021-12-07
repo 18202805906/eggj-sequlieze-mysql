@@ -1,21 +1,11 @@
 'use strict';
 
-const Controller = require('egg').Controller;
-
-class UserController extends Controller {
-
+// 基类控制器
+const BaseController = require('./base');
+class UserController extends BaseController {
   async info() {
-    const { ctx } = this;
-    ctx.body = {
-      code: 200,
-      data: {
-        id: '1',
-        name: '张三',
-        age: 18,
-        gender: '女',
-      },
-      msg: '操作成功',
-    };
+    const data = await this.service.user.info();
+    this.success(data);
   }
 
   async findById() {
@@ -35,7 +25,7 @@ class UserController extends Controller {
         name: '王五',
       },
     ];
-    const result = userlist.find(v => v.id === userId);
+    const result = userlist.find((v) => v.id === userId);
     ctx.body = {
       code: 200,
       data: result,
@@ -60,14 +50,13 @@ class UserController extends Controller {
         name: '王五',
       },
     ];
-    const result = userlist.find(v => v.id === userId);
+    const result = userlist.find((v) => v.id === userId);
     ctx.status = 201;
     ctx.body = {
       code: 200,
       data: result,
       msg: '操作成功',
     };
-
   }
 
   // 创建单个用户
@@ -223,11 +212,11 @@ class UserController extends Controller {
     const offset = (query.page - 1) * limit;
     const result = await this.ctx.model.User.findAll({
       attributes: {
-        exclude: [ 'password' ],
+        exclude: ['password'],
       },
       order: [
-        [ 'updated_at', 'DESC' ],
-        [ 'id', 'DESC' ],
+        ['updated_at', 'DESC'],
+        ['id', 'DESC'],
       ],
       offset,
       limit,
@@ -254,11 +243,11 @@ class UserController extends Controller {
     const offset = (query.page - 1) * limit;
     const result = await this.ctx.model.User.findAll({
       attributes: {
-        exclude: [ 'password' ],
+        exclude: ['password'],
       },
       order: [
-        [ 'updated_at', 'DESC' ],
-        [ 'id', 'DESC' ],
+        ['updated_at', 'DESC'],
+        ['id', 'DESC'],
       ],
       offset,
       limit,
@@ -295,14 +284,13 @@ class UserController extends Controller {
     // fields 是只允许修改的字段
     const updateParams = this.ctx.request.body;
     const updateResult = await result.update(updateParams, {
-      fields: [ 'username' ],
+      fields: ['username'],
     });
     this.ctx.body = {
       code: 200,
       data: updateResult,
       msg: '操作成功',
     };
-
   }
 
   // 删除
@@ -333,8 +321,6 @@ class UserController extends Controller {
       msg: '操作成功',
     };
   }
-
-
 }
 
 module.exports = UserController;
